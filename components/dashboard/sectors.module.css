@@ -1,0 +1,136 @@
+.row {
+  display: flex;
+  gap: var(--space-3);
+  height: 320px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  flex: 1 1 0;
+  min-width: 0;
+  transition: flex-grow 500ms var(--ease-standard);
+}
+
+.tile {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--radius-panel);
+  background: var(--surface-muted);
+  color: var(--on-brand);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  isolation: isolate;
+}
+
+.photo {
+  z-index: -2;
+  object-fit: cover;
+  transition: transform 900ms var(--ease-standard);
+}
+
+/* Midnight rising from the bottom, so the name reads on any photo. */
+.shade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    to top,
+    color-mix(in oklch, var(--brand-midnight) 92%, transparent),
+    color-mix(in oklch, var(--brand-midnight) 34%, transparent) 48%,
+    color-mix(in oklch, var(--brand-midnight) 12%, transparent)
+  );
+}
+
+.open {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid color-mix(in oklch, var(--on-brand) 55%, transparent);
+  border-radius: var(--radius-pill);
+  backdrop-filter: blur(8px);
+  transition:
+    transform var(--duration-spring) var(--ease-spring),
+    background-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard);
+}
+
+.text {
+  position: absolute;
+  right: var(--space-4);
+  bottom: var(--space-4);
+  left: var(--space-4);
+  display: grid;
+  gap: var(--space-1);
+}
+
+.name {
+  display: -webkit-box;
+  overflow: hidden;
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 500;
+  letter-spacing: var(--tracking-display);
+  line-height: 1.15;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+}
+
+.count {
+  color: var(--on-brand-muted);
+  font-size: var(--text-sm);
+  white-space: nowrap;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .item:hover {
+    flex-grow: 2;
+  }
+
+  .tile:hover .photo {
+    transform: scale(1.05);
+  }
+
+  .tile:hover .open {
+    background: var(--brand-green);
+    border-color: var(--brand-green);
+    color: var(--brand-midnight);
+    transform: rotate(45deg);
+  }
+}
+
+/* On small screens the tiles become a row to swipe through. */
+@media (max-width: 860px) {
+  .row {
+    height: 260px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .item {
+    flex: 0 0 58%;
+    scroll-snap-align: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item,
+  .photo,
+  .open {
+    transition: none;
+  }
+}

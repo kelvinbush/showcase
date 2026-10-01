@@ -1,0 +1,74 @@
+.request {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.request > * {
+  min-width: 0;
+}
+
+.header {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(var(--text-3xl), 5vw, var(--text-4xl));
+  font-weight: 500;
+  letter-spacing: var(--tracking-display);
+  line-height: var(--leading-display);
+}
+
+.lede {
+  max-width: 52ch;
+  color: var(--text-secondary);
+  font-size: var(--text-lg);
+  text-wrap: pretty;
+}
+
+.form {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.form > * {
+  min-width: 0;
+}
+
+.pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.fieldset legend {
+  margin-bottom: var(--space-3);
+  padding: 0;
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.submit {
+  width: 100%;
+  margin-top: var(--space-3);
+}
+
+.account {
+  display: grid;
+  gap: var(--space-4);
+  justify-items: start;
+}
+
+@media (max-width: 560px) {
+  .pair {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

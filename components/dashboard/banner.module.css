@@ -1,0 +1,156 @@
+.banner {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: var(--space-8);
+  align-items: center;
+  min-height: 280px;
+  padding: clamp(24px, 4vw, 44px);
+  overflow: hidden;
+  border: 1px solid color-mix(in oklch, var(--on-brand) 9%, transparent);
+  border-radius: var(--radius-surface);
+  /* The website's hero wash: lit from the top, deepening toward the floor. */
+  background: linear-gradient(180deg, #1a2531 0%, #141d26 45%, #0f171e 100%);
+  color: var(--on-brand);
+  isolation: isolate;
+  scroll-margin-top: 96px;
+}
+
+/* A hairline grid floor, fading out before it reaches the words. */
+.banner::before {
+  content: "";
+  position: absolute;
+  inset: 40% 0 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: linear-gradient(to top, black, transparent 90%);
+}
+
+.copy {
+  display: grid;
+  gap: var(--space-4);
+  max-width: 640px;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(var(--text-3xl), 4.6vw, var(--text-4xl));
+  font-weight: 500;
+  letter-spacing: var(--tracking-display);
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+.title em {
+  color: var(--brand-mint);
+  font-style: normal;
+}
+
+.lede {
+  max-width: 54ch;
+  color: var(--on-brand-muted);
+  text-wrap: pretty;
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+  min-height: 56px;
+  margin: var(--space-2) 0 0;
+}
+
+/* Plain figures, set off from each other by a hairline, with no box. */
+.stat {
+  display: grid;
+  gap: var(--space-1);
+  padding-right: var(--space-6);
+  border-right: 1px solid rgb(255 255 255 / 0.14);
+}
+
+.stat:last-child {
+  padding-right: 0;
+  border-right: 0;
+}
+
+.stat dd {
+  /* The number reads first, above its label. */
+  order: -1;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: var(--tracking-display);
+  line-height: 1;
+}
+
+.stat dt {
+  color: var(--on-brand-muted);
+  font-size: var(--text-xs);
+}
+
+.art {
+  position: relative;
+  aspect-ratio: 1;
+  width: 100%;
+}
+
+.rings {
+  position: absolute;
+  inset: -22%;
+  width: 144%;
+  height: 144%;
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+/* The continent, cut as a window onto the photograph. */
+.africa {
+  position: absolute;
+  inset: 2% 6%;
+  background: #16212b;
+  mask: url("/africa.svg") center / contain no-repeat;
+}
+
+/*
+ * A wash over the photograph: brand green through the highlights and midnight
+ * gathering toward the south, so the picture sits in the banner's palette
+ * instead of glaring out of it.
+ */
+.africa::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      200deg,
+      color-mix(in oklch, var(--brand-green) 30%, transparent),
+      transparent 55%
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in oklch, var(--brand-midnight) 22%, transparent),
+      color-mix(in oklch, var(--brand-midnight) 72%, transparent)
+    );
+}
+
+@media (max-width: 860px) {
+  .banner {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+  }
+
+  .art {
+    position: absolute;
+    top: -30px;
+    right: -70px;
+    z-index: -1;
+    width: 260px;
+    opacity: 0.4;
+  }
+}

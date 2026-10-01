@@ -1,0 +1,237 @@
+.profile {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.profile > * {
+  min-width: 0;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: fit-content;
+  min-height: var(--control-height-sm);
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .back:hover {
+    color: var(--foreground);
+  }
+}
+
+/* The business's photo, with its name written over it. */
+.hero {
+  position: relative;
+  min-height: clamp(280px, 40vw, 440px);
+  overflow: hidden;
+  border-radius: var(--radius-surface);
+  background: var(--surface-muted);
+  color: var(--on-brand);
+  isolation: isolate;
+}
+
+.cover {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.shade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    to top,
+    color-mix(in oklch, var(--brand-midnight) 90%, transparent),
+    color-mix(in oklch, var(--brand-midnight) 35%, transparent) 50%,
+    transparent 75%
+  );
+}
+
+.pills {
+  position: absolute;
+  top: var(--space-5);
+  left: var(--space-5);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.pill {
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--on-brand);
+  color: var(--brand-midnight);
+  font-size: var(--text-xs);
+  font-weight: 500;
+}
+
+.identity {
+  position: absolute;
+  right: clamp(20px, 4vw, 40px);
+  bottom: clamp(20px, 4vw, 40px);
+  left: clamp(20px, 4vw, 40px);
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-5);
+}
+
+.titles {
+  display: grid;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(var(--text-3xl), 5vw, var(--text-4xl));
+  font-weight: 400;
+  letter-spacing: var(--tracking-display);
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+.tagline {
+  max-width: 60ch;
+  color: var(--on-brand-muted);
+  font-size: var(--text-lg);
+  text-wrap: pretty;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: var(--space-10);
+  align-items: start;
+  padding-top: var(--space-4);
+}
+
+.main {
+  min-width: 0;
+}
+
+.panel {
+  padding-top: var(--space-6);
+}
+
+.stack {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.stack > * {
+  min-width: 0;
+}
+
+.prose {
+  display: grid;
+  gap: var(--space-4);
+  max-width: 68ch;
+  font-size: var(--text-lg);
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.muted {
+  color: var(--text-secondary);
+}
+
+/* A soft wash of the brand green, like the tinted cards in the reference. */
+.aside {
+  position: sticky;
+  top: calc(64px + var(--space-6));
+  display: grid;
+  gap: var(--space-5);
+  padding: var(--space-6);
+  border-radius: var(--radius-surface);
+  background: color-mix(in oklch, var(--brand-green) 10%, var(--surface));
+}
+
+.asideTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 500;
+  letter-spacing: var(--tracking-display);
+}
+
+.facts {
+  display: grid;
+  margin: 0;
+}
+
+.fact {
+  display: grid;
+  gap: var(--space-1);
+  padding-block: var(--space-3);
+  border-top: 1px solid color-mix(in oklch, var(--brand-green) 22%, transparent);
+}
+
+.fact dt {
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+}
+
+.fact dd {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.website {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  height: var(--control-height-md);
+  border-radius: var(--radius-control);
+  background: var(--brand-midnight);
+  color: var(--on-brand);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  transition: opacity var(--duration-fast) var(--ease-standard);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .website:hover {
+    opacity: 0.88;
+  }
+}
+
+.loading {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.retry {
+  margin-top: var(--space-3);
+}
+
+@media (max-width: 960px) {
+  .columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .aside {
+    position: static;
+  }
+}
+
+@media (max-width: 560px) {
+  .identity {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .back,
+  .website {
+    transition: none;
+  }
+}

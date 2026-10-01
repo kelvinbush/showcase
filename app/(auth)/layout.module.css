@@ -1,0 +1,165 @@
+.auth {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  min-height: 100dvh;
+}
+
+.pitch {
+  position: relative;
+  display: grid;
+  overflow: hidden;
+  background: var(--brand-midnight);
+  color: var(--on-brand);
+  isolation: isolate;
+}
+
+.backdrop {
+  z-index: -2;
+  object-fit: cover;
+}
+
+/* A midnight wash over the photo keeps the headline readable on any image. */
+.pitch::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    to top,
+    var(--brand-midnight) 8%,
+    color-mix(in oklch, var(--brand-midnight) 55%, transparent) 55%,
+    color-mix(in oklch, var(--brand-midnight) 30%, transparent)
+  );
+}
+
+.pitchInner {
+  display: grid;
+  align-content: space-between;
+  gap: var(--space-12);
+  padding: var(--space-10) clamp(24px, 5vw, 64px) var(--space-12);
+}
+
+.pitchCopy {
+  display: grid;
+  gap: var(--space-6);
+}
+
+/* The logo follows the text colour, which is white on this photo panel. */
+.brand {
+  display: flex;
+  --foreground: var(--on-brand);
+}
+
+.pitch .title {
+  color: var(--on-brand);
+  /* The translated title carries its own line break. */
+  white-space: pre-line;
+  font-family: var(--font-display);
+  font-size: clamp(var(--text-3xl), 4.4vw, var(--text-4xl));
+  font-weight: 500;
+  letter-spacing: var(--tracking-display);
+  line-height: var(--leading-display);
+}
+
+.points {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  color: var(--on-brand-muted);
+  list-style: none;
+}
+
+.points li {
+  position: relative;
+  padding-left: var(--space-6);
+}
+
+.points li::before {
+  content: "";
+  position: absolute;
+  top: 0.55em;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: var(--brand-mint);
+}
+
+.form {
+  display: grid;
+  place-items: center;
+  padding: var(--space-12) clamp(16px, 4vw, 48px);
+}
+
+.demo {
+  display: grid;
+  gap: var(--space-5);
+  max-width: 400px;
+}
+
+.demoLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--control-height-lg);
+  padding-inline: var(--space-6);
+  border-radius: var(--radius-control);
+  background: var(--brand-green);
+  color: var(--brand-midnight);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  transition: background-color var(--duration-fast) var(--ease-standard);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .demoLink:hover {
+    background: var(--brand-mint);
+  }
+}
+
+@media (max-width: 860px) {
+  .auth {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+  }
+
+  .pitchInner {
+    gap: var(--space-16);
+    padding-block: var(--space-6) var(--space-8);
+  }
+
+  .points {
+    display: none;
+  }
+}
+
+.welcome {
+  display: grid;
+  gap: var(--space-5);
+  width: 100%;
+  max-width: 400px;
+}
+
+.welcomeTitle {
+  font-size: var(--text-2xl);
+  font-weight: 500;
+}
+
+.welcomeText {
+  color: var(--text-secondary);
+  text-wrap: pretty;
+}
+
+.welcomeAlt {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  text-align: center;
+}
+
+.welcomeAlt a {
+  color: var(--foreground);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

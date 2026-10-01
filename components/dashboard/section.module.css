@@ -1,0 +1,74 @@
+.section {
+  display: grid;
+  gap: var(--space-6);
+  /* Leaves room for the sticky top bar when the menu jumps here. */
+  scroll-margin-top: 76px;
+}
+
+.section > * {
+  min-width: 0;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr) auto;
+  gap: var(--space-6);
+  align-items: end;
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--border);
+}
+
+.label {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  align-self: start;
+  padding-top: var(--space-2);
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+}
+
+.number {
+  color: var(--brand-green);
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-variant-numeric: tabular-nums;
+}
+
+.title {
+  max-width: 22ch;
+  font-family: var(--font-display);
+  font-size: clamp(var(--text-2xl), 3.4vw, var(--text-3xl));
+  font-weight: 400;
+  letter-spacing: var(--tracking-display);
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+.title em {
+  color: var(--accent-strong);
+  font-style: normal;
+}
+
+:root[data-theme="dark"] .title em {
+  color: var(--accent);
+}
+
+.aside {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+@media (max-width: 720px) {
+  .header {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--space-3);
+  }
+
+  .label {
+    grid-column: 1 / -1;
+    padding-top: 0;
+  }
+}

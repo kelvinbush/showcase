@@ -1,0 +1,45 @@
+.impact {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.impact > * {
+  min-width: 0;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-4);
+}
+
+.split {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-6);
+}
+
+.split > * {
+  min-width: 0;
+}
+
+.panel {
+  display: grid;
+  gap: var(--space-5);
+  margin: 0;
+  padding: var(--space-6);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-surface);
+  background: var(--surface);
+}
+
+.caption h3 {
+  font-size: var(--text-lg);
+  font-weight: 500;
+}
+
+.caption p {
+  margin-top: var(--space-1);
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+}

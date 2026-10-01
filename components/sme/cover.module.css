@@ -1,0 +1,50 @@
+.cover {
+  --tint: var(--brand-green);
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--surface-muted);
+}
+
+/* No photo: a wash of one brand colour with a dot field, so an empty cover
+   still reads as part of the brand rather than as missing content. */
+.cover[data-tint] {
+  background-color: color-mix(in oklch, var(--tint) 16%, var(--surface));
+  background-image: radial-gradient(
+    color-mix(in oklch, var(--tint) 34%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 14px 14px;
+}
+
+.cover[data-tint="pink"] {
+  --tint: var(--brand-pink);
+}
+
+.cover[data-tint="sky"] {
+  --tint: var(--brand-sky);
+}
+
+.cover[data-tint="amber"] {
+  --tint: var(--brand-amber);
+}
+
+.image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.initials {
+  color: color-mix(in oklch, var(--tint) 62%, var(--foreground));
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  font-weight: 500;
+  letter-spacing: var(--tracking-display);
+  line-height: 1;
+}
