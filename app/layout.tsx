@@ -28,11 +28,11 @@ const neueMontreal = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: "Melanin Kapital Investors",
-    template: "%s | Melanin Kapital Investors",
+    default: "Melanin Kapital Showcase: the businesses greening Africa",
+    template: "%s | Melanin Kapital Showcase",
   },
   description:
-    "Meet the African businesses Melanin Kapital works with, and the impact they create.",
+    "Meet the businesses Melanin Kapital works with across Africa: who they are, what they do, and the impact they report.",
   icons: { icon: "/logo.svg" },
 };
 
