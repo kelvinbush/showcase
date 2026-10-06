@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^7.9.9",
+    "@posthog/nextjs-config": "^1.11.1",
     "@radix-ui/react-accordion": "^1.2.20",
     "@radix-ui/react-dialog": "^1.1.23",
     "@radix-ui/react-popover": "^1.1.23",
@@ -21,11 +22,14 @@
     "lucide-react": "^1.49.0",
     "motion": "^13.4.6",
     "next": "16.3.8",
+    "posthog-js": "^1.438.0",
+    "posthog-node": "^5.55.0",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.2",
+    "@posthog/cli": "^0.18.9",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -37,6 +41,7 @@
     "unrs-resolver"
   ],
   "trustedDependencies": [
+    "@posthog/cli",
     "sharp",
     "unrs-resolver"
   ]

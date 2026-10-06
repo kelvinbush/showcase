@@ -33,6 +33,25 @@ Set `NEXT_PUBLIC_OPEN_ACCESS=1` here and `INVESTOR_OPEN_ACCESS=true` in
 `mk-backend` to open the dashboard without sign-in, on real data. Remove both
 before real investors use the app.
 
+### Error reporting
+
+Errors go to PostHog, and nothing else does: no page views, no click tracking,
+no session replay, nobody identified, nothing stored in the browser. It is off
+until `NEXT_PUBLIC_POSTHOG_KEY` is set.
+
+- **The SDK** (`instrumentation-client.ts`) reports errors nobody caught,
+  rejected promises and `console.error`.
+- **Error pages** (`app/error.tsx`, `app/global-error.tsx`) report a page that
+  throws while rendering.
+- **`callApi`** in `lib/api.ts` reports a request the API failed (5xx) or never
+  answered, with the `x-request-id` the backend logged it under. A 4xx is the
+  API saying no and is not an error.
+- **The server** (`instrumentation.ts`) reports what Next catches while serving
+  a request.
+
+`/drill` is a page of buttons that each fail on purpose, for proving all of the
+above in production. It is a 404 unless `DRILL_TOKEN` is set.
+
 ## Layout
 
 | Path | What it holds |

@@ -9,6 +9,11 @@ import {
   demoSubmitRequest,
   getDemoMe,
 } from "./demo-data";
+import {
+  markReported,
+  newRequestId,
+  reportApiFailure,
+} from "./error-reporting";
 import { useSession } from "./session";
 import type {
   AccessRequestInput,
@@ -24,6 +29,8 @@ export class ApiError extends Error {
     message: string,
   ) {
     super(message);
+    // Named, so error tracking can tell "the API said no" from a real fault.
+    this.name = "ApiError";
   }
 }
 
@@ -53,29 +60,60 @@ function demoRequest<T>(path: string, init?: RequestInit): Promise<T> {
   return demoDelay(result as T);
 }
 
+/**
+ * One request to the API. Every call goes through here, which makes it the one
+ * place that can report a request that failed even though the page handled it
+ * gracefully. Outside the hook so it can be used without a session.
+ */
+export async function callApi<T>(
+  path: string,
+  init: RequestInit | undefined,
+  token: string | null,
+): Promise<T> {
+  const method = (init?.method ?? "GET").toUpperCase();
+  // The backend adopts this id and logs every line under it.
+  const requestId = newRequestId();
+
+  let response: Response;
+  try {
+    response = await fetch(`${API_URL}${path}`, {
+      ...init,
+      headers: {
+        ...(init?.body ? { "Content-Type": "application/json" } : {}),
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        "x-request-id": requestId,
+      },
+    });
+  } catch (error) {
+    // No answer at all: the API is down, or the network between is.
+    reportApiFailure({ method, path, requestId });
+    markReported(error);
+    throw error;
+  }
+
+  const payload = await response.json().catch(() => null);
+  if (!response.ok) {
+    reportApiFailure({
+      method,
+      path,
+      status: response.status,
+      requestId: response.headers.get("x-request-id") ?? requestId,
+    });
+    throw new ApiError(
+      response.status,
+      payload?.error ?? "UNKNOWN_ERROR",
+      payload?.message ?? "Something went wrong. Try again.",
+    );
+  }
+  return payload.data as T;
+}
+
 function useRequest(): Request {
   const { getToken } = useSession();
 
   return async <T>(path: string, init?: RequestInit) => {
     if (DEMO_MODE) return demoRequest<T>(path, init);
-
-    const token = await getToken();
-    const response = await fetch(`${API_URL}${path}`, {
-      ...init,
-      headers: {
-        ...(init?.body ? { "Content-Type": "application/json" } : {}),
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      },
-    });
-    const payload = await response.json().catch(() => null);
-    if (!response.ok) {
-      throw new ApiError(
-        response.status,
-        payload?.error ?? "UNKNOWN_ERROR",
-        payload?.message ?? "Something went wrong. Try again.",
-      );
-    }
-    return payload.data as T;
+    return callApi<T>(path, init, await getToken());
   };
 }
 
